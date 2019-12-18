@@ -11,34 +11,34 @@ public class CompositeKeyForReports implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "secondAccountNumber")
-    private SecondOrderAccountNumbers secondOrderAccountNumbers;
+    private Bills bills;
 
     @ManyToOne
     @JoinColumn(name = "registrationAccountNumber")
-    private RegistrationNumbers registrationNumbers;
+    private Banks banks;
 
     public CompositeKeyForReports() {
     }
 
-    public CompositeKeyForReports(SecondOrderAccountNumbers secondOrderAccountNumbers, RegistrationNumbers registrationNumbers) {
-        this.secondOrderAccountNumbers = secondOrderAccountNumbers;
-        this.registrationNumbers = registrationNumbers;
+    public CompositeKeyForReports(Bills bills, Banks banks) {
+        this.bills = bills;
+        this.banks = banks;
     }
 
-    public SecondOrderAccountNumbers getSecondOrderAccountNumbers() {
-        return secondOrderAccountNumbers;
+    public Bills getBills() {
+        return bills;
     }
 
-    public void setSecondOrderAccountNumbers(SecondOrderAccountNumbers secondOrderAccountNumbers) {
-        this.secondOrderAccountNumbers = secondOrderAccountNumbers;
+    public void setBills(Bills bills) {
+        this.bills = bills;
     }
 
-    public RegistrationNumbers getRegistrationNumbers() {
-        return registrationNumbers;
+    public Banks getBanks() {
+        return banks;
     }
 
-    public void setRegistrationNumbers(RegistrationNumbers registrationNumbers) {
-        this.registrationNumbers = registrationNumbers;
+    public void setBanks(Banks banks) {
+        this.banks = banks;
     }
 
     @Override
@@ -46,12 +46,12 @@ public class CompositeKeyForReports implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CompositeKeyForReports that = (CompositeKeyForReports) o;
-        return secondOrderAccountNumbers.equals(that.secondOrderAccountNumbers) &&
-                registrationNumbers.equals(that.registrationNumbers);
+        return bills.equals(that.bills) &&
+                banks.equals(that.banks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(secondOrderAccountNumbers, registrationNumbers);
+        return Objects.hash(bills, banks);
     }
 }
