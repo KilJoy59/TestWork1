@@ -17,9 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 
 @RestController
-@RequestMapping("/api/file")
-public class UploadController {
-    private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+public class FileController {
+    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
     private FileStorageService fileStorageService;

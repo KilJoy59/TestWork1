@@ -23,8 +23,7 @@ function uploadSingleFile(file) {
             singleFileUploadSuccess.style.display = "none";
             singleFileUploadError.innerHTML = (response && response.message) || "Ошибка";
         }
-    }
-
+    };
     xhr.send(formData);
 }
 
