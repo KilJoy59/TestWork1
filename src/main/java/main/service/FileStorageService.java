@@ -4,18 +4,20 @@ import main.exception.FileStorageException;
 import main.property.FileStorageProperties;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.io.inputstream.ZipInputStream;
+import net.lingala.zip4j.model.LocalFileHeader;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+import java.util.zip.ZipEntry;
 
 
 @Service
@@ -37,7 +39,7 @@ public class FileStorageService {
 
     public String storeFile(MultipartFile file) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Path targetLocation = this.fileStorageLocation.resolve(fileName);
+        String destination = "C:/Users/End/Desktop/AbrakovemTestWork/data";
         try {
             if(fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
@@ -46,14 +48,14 @@ public class FileStorageService {
             FileOutputStream o = new FileOutputStream(zip);
             IOUtils.copy(file.getInputStream(), o);
             o.close();
-            String destination = "C:/Users/End/Desktop/AbrakovemTestWork/data";
             try {
                 ZipFile zipFile = new ZipFile(zip);
+                zipFile.getSplitZipFiles();
                 zipFile.extractAll(destination);
             } catch (ZipException e) {
                 e.printStackTrace();
             } finally {
-                zip.delete();
+                zip.deleteOnExit();
             }
             return fileName;
         } catch (IOException ex) {
