@@ -14,7 +14,6 @@ function uploadSingleFile(file) {
 
     xhr.onload = function() {
         console.log(xhr.responseText);
-        var response = JSON.parse(xhr.responseText);
         if(xhr.status == 200) {
             singleFileUploadError.style.display = "none";
             singleFileUploadSuccess.innerHTML = "<p>Файл успешно загружен.</p>";

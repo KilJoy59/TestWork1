@@ -1,9 +1,16 @@
 package main.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Banks {
 
     @Id
@@ -11,21 +18,4 @@ public class Banks {
 
     private String organizationName;
 
-    public Banks(){}
-
-    public long getRegistrationAccountNumber() {
-        return registrationAccountNumber;
-    }
-
-    public void setRegistrationAccountNumber(long registrationAccountNumber) {
-        this.registrationAccountNumber = registrationAccountNumber;
-    }
-
-    public String getOrganizationName() {
-        return organizationName;
-    }
-
-    public void setOrganizationName(String organizationName) {
-        this.organizationName = organizationName;
-    }
 }

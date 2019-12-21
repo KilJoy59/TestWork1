@@ -1,31 +1,39 @@
 package main.controller;
 
-import main.payload.UploadFileResponse;
-import main.service.FileStorageService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import main.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.io.File;
+import java.io.IOException;
 
 @RestController
 public class UploadController {
 
     @Autowired
-    private FileStorageService fileStorageService;
+    private FileService fileService;
 
     @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileStorageService.storeFile(file);
+
+    public ResponseEntity uploadFile(@RequestParam("file") MultipartFile multipartFile) {
+        try {
+
+            fileService.unZip(multipartFile);
+            for (File file : fileService.getUnzipFiles()) {
+                fileService.parseXLSX(file.getAbsoluteFile());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
-                .path(fileName)
                 .toUriString();
 
-        return new UploadFileResponse(fileName, fileDownloadUri,
-                file.getContentType(), file.getSize());
+        return ResponseEntity.ok(fileDownloadUri);
     }
 
 
