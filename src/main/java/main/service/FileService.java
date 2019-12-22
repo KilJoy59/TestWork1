@@ -60,7 +60,7 @@ public class FileService {
 
                 Cell currentCell = cellIterator.next();
                 if (currentCell.getCellType() == Cell.CELL_TYPE_STRING) {
-                    System.out.print(currentCell.getStringCellValue() + "--");
+
                 } else if (currentCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                     System.out.print(currentCell.getNumericCellValue() + "--");
                 }

@@ -1,12 +1,10 @@
 package main.repository;
 
-import main.model.Banks;
+import main.model.Bank;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface BanksRepository extends CrudRepository<Banks, Long> {
+public interface BanksRepository extends CrudRepository<Bank, Long> {
     
 }

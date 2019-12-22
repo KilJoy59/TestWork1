@@ -1,8 +1,8 @@
 package main.repository;
 
-import main.model.Reports;
+import main.model.Report;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ReportsRepository extends CrudRepository<Reports,Long> {
+public interface ReportsRepository extends CrudRepository<Report,Long> {
     
 }

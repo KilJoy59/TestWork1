@@ -1,7 +1,7 @@
 package main.repository;
 
-import main.model.Bills;
+import main.model.Bill;
 import org.springframework.data.repository.CrudRepository;
 
-public interface BillsRepository extends CrudRepository<Bills, Long> {
+public interface BillsRepository extends CrudRepository<Bill, Long> {
 }
