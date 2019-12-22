@@ -59,8 +59,6 @@ public class FileService {
             while (cellIterator.hasNext()) {
 
                 Cell currentCell = cellIterator.next();
-                //getCellTypeEnum shown as deprecated for version 3.15
-                //getCellTypeEnum ill be renamed to getCellType starting from version 4.0
                 if (currentCell.getCellType() == Cell.CELL_TYPE_STRING) {
                     System.out.print(currentCell.getStringCellValue() + "--");
                 } else if (currentCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
