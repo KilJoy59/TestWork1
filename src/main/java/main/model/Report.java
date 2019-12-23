@@ -10,43 +10,39 @@ public class Report {
     @EmbeddedId
     private CompositeKeyForReport compositeKeyForReport;
 
-    @Column(name = "Входящие остатки «в рублях», тыс. руб")
     private long incomingBalancesRubles;
 
-    @Column(name = "Входящие остатки «ин. вал., драг. металлы», тыс. руб")
     private long incomingBalancesForeignCurrency;
 
-    @Column(name = "Входящие остатки «итого», тыс. руб.; счета Депо – в штуках")
     private long incomingBalancesTotal;
 
-    @Column(name = "Обороты за отчетный период по дебету (активу) «в рублях», тыс. руб")
     private long debitTurnoverForReportingPeriodRubles;
 
-    @Column(name = "Обороты за отчетный период по дебету (активу) «ин. вал., драг. металлы», тыс. руб")
     private long debitTurnoverForReportingPeriodForeignCurrency;
 
-    @Column(name = "Обороты за отчетный период по дебету (активу) «итого», тыс. руб.; счета Депо – в штуках")
     private long debitTurnoverForReportingPeriodTotal;
 
-    @Column(name = "Обороты за отчетный период по кредиту (пассиву) «в рублях», тыс. руб.")
     private long creditTurnoverForReportingPeriodRubles;
 
-    @Column(name = "Обороты за отчетный период по кредиту (пассиву) «ин. вал., драг. металлы», тыс. руб.")
     private long creditTurnoverForReportingPeriodForeignCurrency;
 
-    @Column(name = "Обороты за отчетный период по кредиту (пассиву) «итого», тыс. руб.;")
     private long creditTurnoverForReportingPeriodTotal;
 
-    @Column(name = "Исходящие остатки «в рублях», тыс. руб.")
     private long outgoingBalancesRubles;
 
-    @Column(name = "Исходящие остатки «ин. вал., драг. металлы», тыс. руб.")
     private long outgoingBalancesForeignCurrency;
 
-    @Column(name = "Исходящие остатки «итого», тыс. руб.;")
     private long outgoingBalancesTotal;
 
     public Report() { }
+
+    public CompositeKeyForReport getCompositeKeyForReport() {
+        return compositeKeyForReport;
+    }
+
+    public void setCompositeKeyForReport(CompositeKeyForReport compositeKeyForReport) {
+        this.compositeKeyForReport = compositeKeyForReport;
+    }
 
     public long getIncomingBalancesRubles() {
         return incomingBalancesRubles;

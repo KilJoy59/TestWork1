@@ -1,13 +1,17 @@
 package main.service;
 
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import main.model.Bank;
+import main.model.Bill;
+import main.model.CompositeKeyForReport;
+import main.model.Report;
 import main.util.FileUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,8 +23,16 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 @Service
-@Slf4j
 public class FileService {
+
+    @Autowired
+    BankService bankService;
+
+    @Autowired
+    BillService billService;
+
+    @Autowired
+    ReportService reportService;
 
     private List<File> unzipFiles = new ArrayList<>();
 
@@ -52,26 +64,85 @@ public class FileService {
         XSSFSheet list = workbook.getSheetAt(0);
         Iterator<Row> iterator = list.iterator();
         while (iterator.hasNext()) {
-
             Row currentRow = iterator.next();
-            Iterator<Cell> cellIterator = currentRow.iterator();
+            if (currentRow.getRowNum() != 0) {
+                Iterator<Cell> cellIterator = currentRow.iterator();
+                if (file.getName().equals(FileUtil.getBANK())) {
+                    Bank bank = new Bank();
+                    while (cellIterator.hasNext()) {
+                        Cell currentCell = cellIterator.next();
+                        int columnIndex = currentCell.getColumnIndex();
 
-            while (cellIterator.hasNext()) {
+                        switch (columnIndex) {
+                            case 0:
+                                Double d = (Double) getCellValue(currentCell);
+                                bank.setRegistrationAccountNumber(d.longValue());
+                                bankService.save(bank);
+                                break;
+                            case 1:
+                                bank.setOrganizationName((String) getCellValue(currentCell));
+                                bankService.save(bank);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                } else if (file.getName().equals(FileUtil.getBILL())) {
+                    Bill bill = new Bill();
+                    while (cellIterator.hasNext()) {
+                        Cell currentCell = cellIterator.next();
+                        int columnIndex = currentCell.getColumnIndex();
 
-                Cell currentCell = cellIterator.next();
-                if (currentCell.getCellType() == Cell.CELL_TYPE_STRING) {
+                        switch (columnIndex) {
+                            case 0:
+                                String d = (String) getCellValue(currentCell);
+                                bill.setSecondAccountNumber(d);
+                                billService.save(bill);
+                                break;
+                            case 1:
+                                bill.setAccountName((String) getCellValue(currentCell));
+                                billService.save(bill);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                } else if (file.getName().equals(FileUtil.getREPORT())) {
+                    Report report = new Report();
+                    CompositeKeyForReport compositeKeyForReport = new CompositeKeyForReport();
+                    while (cellIterator.hasNext()) {
+                        Cell currentCell = cellIterator.next();
+                        int columnIndex = currentCell.getColumnIndex();
 
-                } else if (currentCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                    System.out.print(currentCell.getNumericCellValue() + "--");
+                        switch (columnIndex) {
+                            case 0:
+                                Double d = (Double) getCellValue(currentCell);
+                                report.setCompositeKeyForReport(
+                                        compositeKeyForReport.setRegistrationAccountNumber(d));
+                                        reportService.save(report);
+                                break;
+                            case 1:
+                                String s = (String) getCellValue(currentCell);
+                                report.setCompositeKeyForReport(compositeKeyForReport.setSecondAccountNumber(s));
+                                reportService.save(report);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
-
             }
-            System.out.println();
-
         }
 
+    }
+
+    private Object getCellValue(Cell cell) {
+        switch (cell.getCellType()) {
+            case Cell.CELL_TYPE_STRING:
+                return cell.getStringCellValue();
+            case Cell.CELL_TYPE_NUMERIC:
+                return cell.getNumericCellValue();
         }
-
-
-
+        return null;
+    }
 }

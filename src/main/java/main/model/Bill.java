@@ -1,6 +1,5 @@
 package main.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,19 +7,15 @@ import javax.persistence.Id;
 public class Bill {
 
     @Id
-    @Column(name ="Номер счета второго порядка по Плану счетов")
-    private long secondAccountNumber;
+    private String secondAccountNumber;
 
-    @Column(name = "NAME")
     private String accountName;
 
-    public Bill(){}
-
-    public long getSecondAccountNumber() {
+    public String getSecondAccountNumber() {
         return secondAccountNumber;
     }
 
-    public void setSecondAccountNumber(int secondAccountNumber) {
+    public void setSecondAccountNumber(String secondAccountNumber) {
         this.secondAccountNumber = secondAccountNumber;
     }
 
