@@ -17,7 +17,6 @@ public class UploadController {
     private FileService fileService;
 
     @PostMapping("/uploadFile")
-
     public ResponseEntity uploadFile(@RequestParam("file") MultipartFile multipartFile) {
         try {
 

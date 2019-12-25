@@ -2,15 +2,11 @@ package main.service;
 
 import main.model.Bank;
 import main.model.Bill;
-import main.model.CompositeKeyForReport;
-import main.model.Report;
 import main.util.FileUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -102,29 +98,6 @@ public class FileService {
                             case 1:
                                 bill.setAccountName((String) getCellValue(currentCell));
                                 billService.save(bill);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                } else if (file.getName().equals(FileUtil.getREPORT())) {
-                    Report report = new Report();
-                    CompositeKeyForReport compositeKeyForReport = new CompositeKeyForReport();
-                    while (cellIterator.hasNext()) {
-                        Cell currentCell = cellIterator.next();
-                        int columnIndex = currentCell.getColumnIndex();
-
-                        switch (columnIndex) {
-                            case 0:
-                                Double d = (Double) getCellValue(currentCell);
-                                report.setCompositeKeyForReport(
-                                        compositeKeyForReport.setRegistrationAccountNumber(d));
-                                        reportService.save(report);
-                                break;
-                            case 1:
-                                String s = (String) getCellValue(currentCell);
-                                report.setCompositeKeyForReport(compositeKeyForReport.setSecondAccountNumber(s));
-                                reportService.save(report);
                                 break;
                             default:
                                 break;
