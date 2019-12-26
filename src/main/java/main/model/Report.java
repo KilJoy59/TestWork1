@@ -1,36 +1,51 @@
 package main.model;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "report")
 public class Report {
 
     @EmbeddedId
     private CompositeKeyForReport compositeKeyForReport;
 
+    @Column(name = "incoming_balances_rubles")
     private long incomingBalancesRubles;
 
+    @Column(name = "incoming_balances_foreign_currency")
     private long incomingBalancesForeignCurrency;
 
+    @Column(name = "incoming_balances_total")
     private long incomingBalancesTotal;
 
+    @Column(name = "debit_turnover_for_reporting_period_rubles")
     private long debitTurnoverForReportingPeriodRubles;
 
+    @Column(name = "debit_turnover_for_reporting_period_foreign_currency")
     private long debitTurnoverForReportingPeriodForeignCurrency;
 
+    @Column(name = "debit_turnover_for_reporting_period_total")
     private long debitTurnoverForReportingPeriodTotal;
 
+    @Column(name = "credit_turnover_for_reporting_period_rubles")
     private long creditTurnoverForReportingPeriodRubles;
 
+    @Column(name = "credit_turnover_for_reporting_period_foreign_currency")
     private long creditTurnoverForReportingPeriodForeignCurrency;
 
+    @Column(name = "credit_turnover_for_reporting_period_total")
     private long creditTurnoverForReportingPeriodTotal;
 
+    @Column(name = "outgoing_balances_rubles")
     private long outgoingBalancesRubles;
 
+    @Column(name = "outgoing_balances_foreign_currency")
     private long outgoingBalancesForeignCurrency;
 
+    @Column(name = "outgoing_balances_total")
     private long outgoingBalancesTotal;
 
     public Report() { }

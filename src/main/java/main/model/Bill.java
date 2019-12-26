@@ -1,21 +1,30 @@
 package main.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "bill")
 public class Bill {
 
     @Id
-    private String secondAccountNumber;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
 
+    @Column(name = "second_account_number")
+    private long secondAccountNumber;
+
+    @Column(name = "account_name")
     private String accountName;
 
-    public String getSecondAccountNumber() {
+    public Bill() {
+    }
+
+    public Long getSecondAccountNumber() {
         return secondAccountNumber;
     }
 
-    public void setSecondAccountNumber(String secondAccountNumber) {
+    public void setSecondAccountNumber(Long secondAccountNumber) {
         this.secondAccountNumber = secondAccountNumber;
     }
 

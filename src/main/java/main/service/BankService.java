@@ -12,7 +12,6 @@ public class BankService {
     @Autowired
     BanksRepository banksRepository;
 
-    @Transactional
     public long save(Bank bank ) {
        return banksRepository.save(bank).getRegistrationAccountNumber();
     }

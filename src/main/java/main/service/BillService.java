@@ -12,8 +12,7 @@ public class BillService {
     @Autowired
     private BillsRepository billsRepository;
 
-    @Transactional
-    public String save(Bill bill) {
+    public Long save(Bill bill) {
         return billsRepository.save(bill).getSecondAccountNumber();
     }
 }

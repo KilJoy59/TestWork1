@@ -14,7 +14,7 @@ function uploadSingleFile(file) {
 
     xhr.onload = function() {
         console.log(xhr.responseText);
-        if(xhr.status == 200) {
+        if(xhr.status === 200) {
             singleFileUploadError.style.display = "none";
             singleFileUploadSuccess.innerHTML = "<p>Файл успешно загружен.</p>";
             singleFileUploadSuccess.style.display = "block";
@@ -23,7 +23,6 @@ function uploadSingleFile(file) {
             singleFileUploadError.innerHTML = (response && response.message) || "Ошибка";
         }
     };
-    xhr.send(formData);
 }
 
 singleUploadForm.addEventListener('submit', function(event){

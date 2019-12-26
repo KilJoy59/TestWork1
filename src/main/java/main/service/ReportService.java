@@ -13,7 +13,6 @@ public class ReportService {
     @Autowired
     ReportsRepository reportsRepository;
 
-    @Transactional
     public CompositeKeyForReport save(Report report) {
         return reportsRepository.save(report).getCompositeKeyForReport();
     }

@@ -91,8 +91,7 @@ public class FileService {
 
                         switch (columnIndex) {
                             case 0:
-                                String d = (String) getCellValue(currentCell);
-                                bill.setSecondAccountNumber(d);
+                                bill.setSecondAccountNumber((Long) getCellValue(currentCell));
                                 billService.save(bill);
                                 break;
                             case 1:

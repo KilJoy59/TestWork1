@@ -11,34 +11,34 @@ public class CompositeKeyForReport implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "secondAccountNumber")
-    private String secondAccountNumber;
+    private Bill bill;
 
     @ManyToOne
     @JoinColumn(name = "registrationAccountNumber")
-    private long registrationAccountNumber;
+    private Bank bank;
 
     public CompositeKeyForReport() {
     }
 
-    public CompositeKeyForReport(String secondAccountNumber, long registrationAccountNumber) {
-        this.secondAccountNumber = secondAccountNumber;
-        this.registrationAccountNumber = registrationAccountNumber;
+    public CompositeKeyForReport(Bill bill, Bank bank) {
+        this.bill = bill;
+        this.bank = bank;
     }
 
-    public String getSecondAccountNumber() {
-        return secondAccountNumber;
+    public Bill getBill() {
+        return bill;
     }
 
-    public void setSecondAccountNumber(String secondAccountNumber) {
-        this.secondAccountNumber = secondAccountNumber;
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 
-    public long getRegistrationAccountNumber() {
-        return registrationAccountNumber;
+    public Bank getBank() {
+        return bank;
     }
 
-    public void setRegistrationAccountNumber(long registrationAccountNumber) {
-        this.registrationAccountNumber = registrationAccountNumber;
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     @Override
@@ -46,12 +46,12 @@ public class CompositeKeyForReport implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CompositeKeyForReport that = (CompositeKeyForReport) o;
-        return registrationAccountNumber == that.registrationAccountNumber &&
-                secondAccountNumber.equals(that.secondAccountNumber);
+        return Objects.equals(bill, that.bill) &&
+                Objects.equals(bank, that.bank);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(secondAccountNumber, registrationAccountNumber);
+        return Objects.hash(bill, bank);
     }
 }
